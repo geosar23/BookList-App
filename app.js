@@ -10,23 +10,9 @@ class Book{
 //UI Class
 class UI {
     static displayBooks(){
-        const StoredBooks=[
-            {
-                title:'Book 1',
-                author:'John Doe',
-                isbn:'12345'    
-            },
-            {
-                title:'Book 2',
-                author:'Jane Doe',
-                isbn:'678910'
-            }
-        ]
-        const books=StoredBooks;
+        const books=Store.getBooks;
 
-        books.forEach((book)=>{
-            UI.addBookToList(book);
-        })
+        books.forEach(book=>UI.addBookToList(book))
     }
 
     static addBookToList(book){
@@ -73,6 +59,39 @@ class UI {
 }
 
 //Store Class
+class Store{
+    static getBooks(){
+        let books;
+        if(localStorage.getItem('books')===null){
+            books=[];
+        }else{
+            books=JSON.parse(localStorage.getItem('books'));
+            console.log(books)
+        }
+
+        return books;
+    }
+
+    static addBook(){
+        const books=Store.getBooks();
+
+        books.push(book);
+
+        localStorage.setItem('books',JSON.stringify(books))
+    }
+    static removeBook(isbn){
+        const books=Store.getBooks();
+        books.forEach((book,index)=>{
+            if(book.isbn===isbn){
+                books.splice(index,1)
+            }
+        })
+
+        localStorage.setItem('books',JSON.stringify(books))
+    }
+}
+
+
 
 //Event:Display Books
 document.addEventListener('DOMContentLoaded',UI.displayBooks)
@@ -96,6 +115,9 @@ document.getElementById('book-form').addEventListener('submit',(e)=>{
 
         //Add Book to UI
         UI.addBookToList(book)
+
+        //Add Book to Store
+        Store.addBook(book)
 
         //Show success message
         UI.showAlert('Book Added','success')
