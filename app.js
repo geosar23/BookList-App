@@ -66,7 +66,6 @@ class Store{
             books=[];
         }else{
             books=JSON.parse(localStorage.getItem('books'));
-            console.log(books)
         }
 
         return books;
@@ -139,6 +138,7 @@ document.getElementById('book-list').addEventListener('click',(e)=>{
     //Remove book from store
     Store.removeBook(e.target.parentElement.previousElementSibling.textContent)
 
-    //Show success message
-    UI.showAlert('Book Removed','info')
+    if(e.target.classList.contains('delete')) {
+        UI.showAlert('Book Removed', 'success');
+      }
 })
