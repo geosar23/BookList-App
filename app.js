@@ -72,7 +72,7 @@ class Store{
         return books;
     }
 
-    static addBook(){
+    static addBook(book){
         const books=Store.getBooks();
 
         books.push(book);
@@ -135,5 +135,5 @@ document.getElementById('book-list').addEventListener('click',(e)=>{
     UI.deleteBook(e.target)
 
     //Show success message
-    UI.showAlert('Book Removed','success')
+    UI.showAlert('Book Removed','info')
 })
