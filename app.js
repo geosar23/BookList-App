@@ -10,9 +10,9 @@ class Book{
 //UI Class
 class UI {
     static displayBooks(){
-        const books=Store.getBooks;
+        const books=Store.getBooks();
 
-        books.forEach(book=>UI.addBookToList(book))
+        books.forEach((book)=>UI.addBookToList(book))
     }
 
     static addBookToList(book){
